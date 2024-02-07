@@ -1,6 +1,6 @@
-package org.example;
+package me.vladislav.App;
 
-public class Main {
+public class Simulation {
     public static void main(String[] args) {
         System.out.println("Hello world!");
     }
