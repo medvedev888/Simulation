@@ -3,7 +3,7 @@ package me.vladislav.Entities;
 import me.vladislav.App.Map;
 import me.vladislav.Coordinates;
 
-public class Creature extends Entity {
+public abstract class Creature extends Entity {
 
     private int hungerLevel;
     private int strideLength;
@@ -14,7 +14,6 @@ public class Creature extends Entity {
         this.hungerLevel = hungerLevel;
         this.strideLength = strideLength;
         this.healthPoints = healthPoints;
-
     }
 
     public int getHungerLevel() {
@@ -40,5 +39,7 @@ public class Creature extends Entity {
     public void setHealthPoints(int healthPoints) {
         this.healthPoints = healthPoints;
     }
+
+    public abstract void makeMove();
 
 }

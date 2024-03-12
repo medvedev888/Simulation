@@ -8,11 +8,16 @@ import java.util.HashMap;
 public class Map {
     private final HashMap<Coordinates, Entity> map = new HashMap<>();
 
-    public void addToMap(Coordinates coordinates, Entity entity){
+    public void addEntity(Coordinates coordinates, Entity entity){
         map.put(coordinates, entity);
     }
 
-    // get one element
+    public Entity getEntity(Coordinates coordinates){
+        return map.get(coordinates);
+    }
 
+    public void removeEntity(Coordinates coordinates){
+        map.remove(coordinates);
+    }
 
 }
