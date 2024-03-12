@@ -1,7 +1,7 @@
 package me.vladislav.Entities;
 
 import me.vladislav.App.Map;
-import me.vladislav.Coordinates;
+import me.vladislav.App.Coordinates;
 
 public class Grass extends Entity {
 

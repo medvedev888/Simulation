@@ -1,12 +1,19 @@
 package me.vladislav.App;
 
-import me.vladislav.Coordinates;
 import me.vladislav.Entities.Entity;
 
 import java.util.HashMap;
 
 public class Map {
-    private final HashMap<Coordinates, Entity> map = new HashMap<>();
+    private int widht;
+    private int height;
+    private final HashMap<Coordinates, Entity> map;
+
+    public Map(int width, int height){
+        this.widht = width;
+        this.height = height;
+        map = new HashMap<>();
+    }
 
     public void addEntity(Coordinates coordinates, Entity entity){
         map.put(coordinates, entity);

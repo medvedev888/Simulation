@@ -1,4 +1,4 @@
-package me.vladislav;
+package me.vladislav.App;
 
 public class Coordinates {
     private int row;
