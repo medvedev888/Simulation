@@ -14,12 +14,20 @@ public abstract class Entity {
         this.map = map;
     }
 
+    public Entity(Map map) {
+        this.map = map;
+    }
+
     public Coordinates getPosition() {
         return position;
     }
 
     public void setPosition(Coordinates position) {
         this.position = position;
+    }
+
+    public Map getMap() {
+        return map;
     }
 
     @Override

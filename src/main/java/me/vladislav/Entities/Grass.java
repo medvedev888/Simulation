@@ -9,6 +9,15 @@ public class Grass extends Entity {
         super(position, map);
     }
 
+    public Grass(Map map){
+        super(map);
+    }
+
+    @Override
+    public void setPosition(Coordinates position) {
+        super.setPosition(position);
+    }
+
     @Override
     public String toString() {
         return "Grass{}";

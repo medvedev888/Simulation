@@ -5,7 +5,6 @@ import me.vladislav.App.Map;
 import me.vladislav.Entities.Entity;
 
 public class SpawnEntityAction extends Action implements SpawnAction {
-    private Coordinates coordinates;
 
     public SpawnEntityAction(Map map) {
         super(map);
@@ -13,6 +12,8 @@ public class SpawnEntityAction extends Action implements SpawnAction {
 
     @Override
     public <Ent extends Entity> void execute(Ent entity) {
-        getMap().addEntity(getMap().getCoordinatesOfFreeSpace(), entity);
+        Coordinates coordinates = getMap().getCoordinatesOfFreeSpace();
+        getMap().addEntity(coordinates, entity);
+        entity.setPosition(coordinates);
     }
 }

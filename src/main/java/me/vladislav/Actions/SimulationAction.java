@@ -1,6 +1,8 @@
 package me.vladislav.Actions;
 
 import me.vladislav.App.Map;
+import me.vladislav.Entities.Grass;
+import me.vladislav.Entities.Rock;
 
 public class SimulationAction extends Action{
 
@@ -8,8 +10,11 @@ public class SimulationAction extends Action{
         super(map);
     }
 
-    public void init(){
-
+    public void init(SpawnEntityAction spawnEntityAction, int numberOfEntities){
+        for(int i = 0; i < numberOfEntities; i++){
+            spawnEntityAction.execute(new Grass(getMap()));
+            // add other entities
+        }
     }
 
     public void turn(){
