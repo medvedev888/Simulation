@@ -2,14 +2,62 @@ package me.vladislav.App;
 
 import me.vladislav.Actions.SimulationAction;
 
+import java.util.Objects;
+import java.util.Scanner;
+
+import static java.lang.Thread.currentThread;
+
 public class Simulation {
-    public static void main(String[] args) {
-        Map map = new Map(10, 10);
-        SimulationAction simulationAction = new SimulationAction(map);
-        Renderer renderer = new Renderer(map);
+    private final Map map;
+    private int numberOfTurns = 1;
+    private Renderer renderer;
+    private SimulationAction simulationAction;
+    private boolean isWork = false;
 
-        simulationAction.init(5, 2, 3, 5, 3);
-        renderer.mapRendering();
-
+    public Simulation(Map map, Renderer renderer, SimulationAction simulationAction) {
+        this.map = map;
+        this.renderer = renderer;
+        this.simulationAction = simulationAction;
     }
+
+    public void nextTurn(){
+        System.out.println(numberOfTurns);
+
+        numberOfTurns++;
+    }
+
+    public void startSimulation(){
+        isWork = true;
+        final Thread simulationThread = new Thread() {
+            @Override
+            public void run() {
+                while (isWork) {
+                    // сделать nextTurn(); и проверить работу
+                    nextTurn();
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        };
+        simulationThread.start();
+
+        Scanner scanner = new Scanner(System.in);
+        String input;
+        while (isWork) {
+            input = scanner.nextLine();
+            if(Objects.equals(input, "Stop")){
+                pauseSimulation();
+                break;
+            }
+        }
+        scanner.close();
+    }
+
+    public void pauseSimulation(){
+        isWork = false;
+    }
+
 }
