@@ -36,10 +36,15 @@ public class Map {
         return height;
     }
 
+
+    public boolean containsCoordinates(Coordinates coordinates){
+        return map.containsKey(coordinates);
+    }
+
     public Coordinates getCoordinatesOfFreeSpace(){
         Random random = new Random();
         Coordinates res = new Coordinates(random.nextInt(width) + 1, random.nextInt(height) + 1);
-        while(map.containsKey(res)){
+        while(containsCoordinates(res)){
             res = new Coordinates(random.nextInt(width) + 1, random.nextInt(height) + 1);
         }
 
