@@ -1,6 +1,6 @@
 package me.vladislav.App;
 
-import me.vladislav.Entities.Grass;
+import me.vladislav.Entities.*;
 
 public class Renderer {
     private final Map map;
@@ -21,9 +21,20 @@ public class Renderer {
                     if(map.getEntity(currentCoordinates) instanceof Grass){
                         System.out.printf("%s ", "\uD83C\uDF3F");
                     }
-                    // add other classes
+                    else if(map.getEntity(currentCoordinates) instanceof Rock){
+                        System.out.printf("%s ", "\uD83E\uDEA8");
+                    }
+                    else if(map.getEntity(currentCoordinates) instanceof Tree){
+                        System.out.printf("%s ", "\uD83C\uDF34");
+                    }
+                    else if(map.getEntity(currentCoordinates) instanceof Herbivore){
+                        System.out.printf("%s ", "\uD83D\uDC0F");
+                    }
+                    else if(map.getEntity(currentCoordinates) instanceof Predator){
+                        System.out.printf("%s ", "\uD83D\uDC06");
+                    }
                 } else {
-                    System.out.print("\u25A1   ");
+                    System.out.print("⬜ ");
                 }
             }
             System.out.println();

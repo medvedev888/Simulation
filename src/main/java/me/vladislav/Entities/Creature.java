@@ -16,6 +16,18 @@ public abstract class Creature extends Entity {
         this.healthPoints = healthPoints;
     }
 
+    public Creature(Map map, int hungerLevel, int strideLength, int healthPoints){
+        super(map);
+        this.hungerLevel = hungerLevel;
+        this.strideLength = strideLength;
+        this.healthPoints = healthPoints;
+    }
+
+    @Override
+    public void setPosition(Coordinates position) {
+        super.setPosition(position);
+    }
+
     public int getHungerLevel() {
         return hungerLevel;
     }

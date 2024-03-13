@@ -9,6 +9,15 @@ public class Tree extends Entity {
         super(position, map);
     }
 
+    public Tree(Map map){
+        super(map);
+    }
+
+    @Override
+    public void setPosition(Coordinates position) {
+        super.setPosition(position);
+    }
+
     @Override
     public String toString() {
         return "Tree{}";

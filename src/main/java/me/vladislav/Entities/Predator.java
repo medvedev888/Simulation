@@ -12,6 +12,16 @@ public class Predator extends Creature {
         this.attackPower = attackPower;
     }
 
+    public Predator(Map map, int hungerLevel, int strideLength, int healthPoints, int attackPower) {
+        super(map, hungerLevel, strideLength, healthPoints);
+        this.attackPower = attackPower;
+    }
+
+    @Override
+    public void setPosition(Coordinates position) {
+        super.setPosition(position);
+    }
+
     @Override
     public void makeMove(){
 

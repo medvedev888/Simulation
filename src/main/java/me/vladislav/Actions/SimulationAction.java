@@ -1,8 +1,7 @@
 package me.vladislav.Actions;
 
 import me.vladislav.App.Map;
-import me.vladislav.Entities.Grass;
-import me.vladislav.Entities.Rock;
+import me.vladislav.Entities.*;
 
 public class SimulationAction extends Action{
 
@@ -10,11 +9,14 @@ public class SimulationAction extends Action{
         super(map);
     }
 
-    public void init(int numberOfEntities){
+    public void init(int numberOfEntities, int hungerLevel, int strideLength, int healthPoints, int attackPower){
         SpawnEntityAction spawnEntityAction = new SpawnEntityAction(getMap());
         for(int i = 0; i < numberOfEntities; i++){
             spawnEntityAction.execute(new Grass(getMap()));
-            // add other entities
+            spawnEntityAction.execute(new Rock(getMap()));
+            spawnEntityAction.execute(new Tree(getMap()));
+            spawnEntityAction.execute(new Herbivore(getMap(), hungerLevel, strideLength, healthPoints));
+            spawnEntityAction.execute(new Predator(getMap(), hungerLevel, strideLength, healthPoints, attackPower));
         }
     }
 

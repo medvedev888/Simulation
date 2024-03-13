@@ -9,6 +9,15 @@ public class Herbivore extends Creature {
         super(position, map, hungerLevel, strideLength, healthPoints);
     }
 
+    public Herbivore(Map map, int hungerLevel, int strideLength, int healthPoints){
+        super(map, hungerLevel, strideLength, healthPoints);
+    }
+
+    @Override
+    public void setPosition(Coordinates position) {
+        super.setPosition(position);
+    }
+
     @Override
     public void makeMove(){
 
