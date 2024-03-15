@@ -23,6 +23,10 @@ public abstract class Creature extends Entity {
         this.healthPoints = healthPoints;
     }
 
+    public Creature() {
+        super();
+    }
+
     @Override
     public void setPosition(Coordinates position) {
         super.setPosition(position);

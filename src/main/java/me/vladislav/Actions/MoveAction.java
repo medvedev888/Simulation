@@ -10,56 +10,60 @@ public class MoveAction {
     private Map map;
     private final int width;
     private final int hight;
-    private int strideLength;
 
-    public MoveAction(Map map, int width, int hight, int strideLength) {
+    public MoveAction(Map map, int width, int hight) {
         this.map = map;
         this.width = width;
         this.hight = hight;
-        this.strideLength = strideLength;
     }
 
-    // возвращает новые координаты - конечную точку перемещения
-    public <T extends Creature> Coordinates makeAMove(T creature, Map map){
+    // returns the creature with a new coordinate after moving to the target
+    public <T extends Creature> Coordinates makeAMove(T creature, Map map, int strideLength) {
         Queue<Coordinates> queue = new LinkedList<>();
-        java.util.Map<Coordinates, Boolean> isVisited = new HashMap<>(); // isVisited
-        Coordinates currentElement = null;
+        java.util.Map<Coordinates, Boolean> isVisited = new HashMap<>();
         int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
-        isVisited.put(creature.getPosition(), true);
-        queue.add(creature.getPosition());
-        while(!queue.isEmpty()){
-            currentElement = queue.poll();
+        Coordinates start = creature.getPosition();
+        isVisited.put(start, true);
+        queue.add(start);
 
-            for (int[] dir : directions) {
-                int newRow = currentElement.getRow() + dir[0];
-                int newCol = currentElement.getCol() + dir[1];
+        Coordinates nearestPosition = start;
+        double minDistance = Double.MAX_VALUE;
 
-                Coordinates newCoordinates = new Coordinates(newRow, newCol);
+        while (!queue.isEmpty() && strideLength > 0) {
+            int queueSize = queue.size();
 
-                if (checkingTheCorrectnessOfCoordinates(newCoordinates) && !isVisited.containsKey(newCoordinates)) {
-                    queue.add(newCoordinates);
-                    isVisited.put(newCoordinates, true);
+            for (int i = 0; i < queueSize; i++) {
+                Coordinates currentElement = queue.poll();
 
-                    if(creature instanceof Predator){
-                        for (Coordinates herbivorePosition : map.getSpecifiedObjects(new Herbivore())) {
-                            if (isAdjacentToHerbivore(newCoordinates, herbivorePosition)) {
-                                System.out.println(newCoordinates.getRow() + " " + newCoordinates.getCol());
-                                return newCoordinates;
-                            }
+                for (int[] dir : directions) {
+                    int newRow = currentElement.getRow() + dir[0];
+                    int newCol = currentElement.getCol() + dir[1];
+                    Coordinates newCoordinates = new Coordinates(newRow, newCol);
+
+                    for (Coordinates herbivorePosition : map.getSpecifiedObjects(new Herbivore())) {
+                        if (isAdjacentToHerbivore(newCoordinates, herbivorePosition)) {
+                            System.out.println(newCoordinates.getRow() + " " + newCoordinates.getCol());
+                            return newCoordinates;
                         }
-                    } else {
-                        for (Coordinates herbivorePosition : map.getSpecifiedObjects(new Grass())) {
-                            if (isAdjacentToHerbivore(newCoordinates, herbivorePosition)) {
-                                return newCoordinates;
+                        if (checkingTheCorrectnessOfCoordinates(newCoordinates) && !isVisited.containsKey(newCoordinates)) {
+                            isVisited.put(newCoordinates, true);
+                            queue.add(newCoordinates);
+
+                            double distance = calculateDistance(newCoordinates, herbivorePosition);
+                            if (distance < minDistance) {
+                                minDistance = distance;
+                                nearestPosition = newCoordinates;
+                                System.out.println(nearestPosition.getRow() + " " + nearestPosition.getCol());
                             }
                         }
                     }
-
                 }
             }
+
+            strideLength--;
         }
-        System.out.println(creature.getPosition());
-        return creature.getPosition();
+
+        return nearestPosition;
     }
 
     private boolean checkingTheCorrectnessOfCoordinates(Coordinates coordinates){
@@ -72,6 +76,12 @@ public class MoveAction {
         int rowDiff = Math.abs(predatorPosition.getRow() - herbivorePosition.getRow());
         int colDiff = Math.abs(predatorPosition.getCol() - herbivorePosition.getCol());
         return (rowDiff <= 1 && colDiff <= 1);
+    }
+
+    private double calculateDistance(Coordinates a, Coordinates b) {
+        int dx = a.getRow() - b.getRow();
+        int dy = a.getCol() - b.getCol();
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
 }

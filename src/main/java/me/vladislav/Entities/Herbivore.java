@@ -13,6 +13,10 @@ public class Herbivore extends Creature {
         super(map, hungerLevel, strideLength, healthPoints);
     }
 
+    public Herbivore() {
+        super();
+    }
+
     @Override
     public void setPosition(Coordinates position) {
         super.setPosition(position);

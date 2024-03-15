@@ -1,5 +1,6 @@
 package me.vladislav.Entities;
 
+import me.vladislav.Actions.MoveAction;
 import me.vladislav.App.Map;
 import me.vladislav.App.Coordinates;
 

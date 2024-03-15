@@ -13,6 +13,10 @@ public class Grass extends Entity {
         super(map);
     }
 
+    public Grass() {
+
+    }
+
     @Override
     public void setPosition(Coordinates position) {
         super.setPosition(position);

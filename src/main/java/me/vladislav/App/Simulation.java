@@ -5,8 +5,6 @@ import me.vladislav.Actions.SimulationAction;
 import java.util.Objects;
 import java.util.Scanner;
 
-import static java.lang.Thread.currentThread;
-
 public class Simulation {
     private final Map map;
     private int numberOfTurns = 1;
@@ -21,8 +19,8 @@ public class Simulation {
     }
 
     public void nextTurn(){
-        System.out.println(numberOfTurns);
-
+        System.out.println("Turn: "+ numberOfTurns);
+        renderer.mapRendering(map);
         numberOfTurns++;
     }
 

@@ -21,6 +21,8 @@ public class SimulationAction extends Action{
     }
 
     public void turn(){
+        // сделать функционал поедания
+
 
     }
 }

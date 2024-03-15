@@ -3,7 +3,7 @@ package me.vladislav.App;
 import me.vladislav.Entities.*;
 
 public class Renderer {
-    private final Map map;
+    private Map map;
 
     public Renderer(Map map) {
         this.map = map;
@@ -13,7 +13,7 @@ public class Renderer {
         return map;
     }
 
-    public void mapRendering(){
+    public void mapRendering(Map map){
         for(int i = 1; i <= map.getWidth(); i++){
             for(int j = 1; j <= map.getHeight(); j++){
                 Coordinates currentCoordinates = new Coordinates(i, j);

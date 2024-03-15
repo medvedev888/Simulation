@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public abstract class Entity {
     private Coordinates position;
-    private final Map map;
+    private Map map;
 
     public Entity(Coordinates position, Map map) {
         this.position = position;
@@ -16,6 +16,10 @@ public abstract class Entity {
 
     public Entity(Map map) {
         this.map = map;
+    }
+
+    public Entity() {
+
     }
 
     public Coordinates getPosition() {

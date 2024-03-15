@@ -1,8 +1,11 @@
 package me.vladislav.App;
 
 import me.vladislav.Entities.Entity;
+import me.vladislav.Entities.Herbivore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 public class Map {
@@ -22,6 +25,16 @@ public class Map {
 
     public Entity getEntity(Coordinates coordinates){
         return map.get(coordinates);
+    }
+
+    public <T extends Entity> List<Coordinates> getSpecifiedObjects(T entity){
+        List <Coordinates> listOfHerbivores = new ArrayList<>();
+        for(Entity currentEntity : map.values()){
+            if(currentEntity.getClass().equals(entity.getClass())){
+                listOfHerbivores.add(((T) currentEntity).getPosition());
+            }
+        }
+        return listOfHerbivores;
     }
 
     public void removeEntity(Coordinates coordinates){
