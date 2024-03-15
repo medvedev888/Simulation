@@ -1,5 +1,6 @@
 package me.vladislav.Entities;
 
+import me.vladislav.Actions.MoveAction;
 import me.vladislav.App.Map;
 import me.vladislav.App.Coordinates;
 
@@ -23,8 +24,13 @@ public class Herbivore extends Creature {
     }
 
     @Override
-    public void makeMove(){
-
+    public void makeMove(Creature creature, Map map, int strideLength){
+        MoveAction moveAction = new MoveAction(getMap(), getMap().getWidth(), getMap().getHeight());
+        moveAction.makeAMove(creature, map, strideLength);
+        getMap().removeEntity(creature.getPosition());
+        Coordinates newCoordinates = moveAction.makeAMove(creature, map, strideLength);
+        creature.setPosition(newCoordinates);
+        getMap().addEntity(newCoordinates, creature);
     }
 
     public void eat(Grass grass){

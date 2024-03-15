@@ -8,6 +8,9 @@ public class Predator extends Creature {
 
     private int attackPower;
 
+    public Predator(){
+    }
+
     public Predator(Coordinates position, Map map, int hungerLevel, int strideLength, int healthPoints, int attackPower) {
         super(position, map, hungerLevel, strideLength, healthPoints);
         this.attackPower = attackPower;
@@ -24,8 +27,13 @@ public class Predator extends Creature {
     }
 
     @Override
-    public void makeMove(){
-
+    public void makeMove(Creature creature, Map map, int strideLength){
+        MoveAction moveAction = new MoveAction(getMap(), getMap().getWidth(), getMap().getHeight());
+        moveAction.makeAMove(creature, map, strideLength);
+        getMap().removeEntity(creature.getPosition());
+        Coordinates newCoordinates = moveAction.makeAMove(creature, map, strideLength);
+        creature.setPosition(newCoordinates);
+        getMap().addEntity(newCoordinates, creature);
     }
 
     public void attack(Herbivore herbivore){

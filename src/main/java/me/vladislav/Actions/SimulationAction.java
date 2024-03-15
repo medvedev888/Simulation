@@ -1,9 +1,15 @@
 package me.vladislav.Actions;
 
+import me.vladislav.App.Coordinates;
 import me.vladislav.App.Map;
+import me.vladislav.App.Renderer;
 import me.vladislav.Entities.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SimulationAction extends Action{
+
 
     public SimulationAction(Map map) {
         super(map);
@@ -21,7 +27,14 @@ public class SimulationAction extends Action{
     }
 
     public void turn(){
+        List<Entity> listOfPredator;
+        listOfPredator = getMap().getSpecifiedObjects(new Predator());
+        for(Entity predator : listOfPredator){
+            ((Creature) predator).makeMove((Creature) predator, getMap(), ((Creature) predator).getStrideLength());
+        }
+
         // сделать функционал поедания
+        // сделать движение Herbivore
 
 
     }

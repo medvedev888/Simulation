@@ -17,7 +17,7 @@ public class MoveAction {
         this.hight = hight;
     }
 
-    // returns the creature with a new coordinate after moving to the target
+    // returns the creature with a new coordinate after moving to the target (BFS)
     public <T extends Creature> Coordinates makeAMove(T creature, Map map, int strideLength) {
         Queue<Coordinates> queue = new LinkedList<>();
         java.util.Map<Coordinates, Boolean> isVisited = new HashMap<>();
@@ -28,37 +28,34 @@ public class MoveAction {
 
         Coordinates nearestPosition = start;
         double minDistance = Double.MAX_VALUE;
+        Coordinates target;
 
         while (!queue.isEmpty() && strideLength > 0) {
-            int queueSize = queue.size();
 
-            for (int i = 0; i < queueSize; i++) {
-                Coordinates currentElement = queue.poll();
+            Coordinates currentElement = queue.poll();
+            target = getTheNearestTarget(currentElement, new Herbivore()).getPosition();
 
-                for (int[] dir : directions) {
-                    int newRow = currentElement.getRow() + dir[0];
-                    int newCol = currentElement.getCol() + dir[1];
-                    Coordinates newCoordinates = new Coordinates(newRow, newCol);
+            for (int[] dir : directions) {
+                int newRow = currentElement.getRow() + dir[0];
+                int newCol = currentElement.getCol() + dir[1];
+                Coordinates newCoordinates = new Coordinates(newRow, newCol);
 
-                    for (Coordinates herbivorePosition : map.getSpecifiedObjects(new Herbivore())) {
-                        if (isAdjacentToHerbivore(newCoordinates, herbivorePosition)) {
-                            System.out.println(newCoordinates.getRow() + " " + newCoordinates.getCol());
-                            return newCoordinates;
-                        }
-                        if (checkingTheCorrectnessOfCoordinates(newCoordinates) && !isVisited.containsKey(newCoordinates)) {
-                            isVisited.put(newCoordinates, true);
-                            queue.add(newCoordinates);
 
-                            double distance = calculateDistance(newCoordinates, herbivorePosition);
-                            if (distance < minDistance) {
-                                minDistance = distance;
-                                nearestPosition = newCoordinates;
-                                System.out.println(nearestPosition.getRow() + " " + nearestPosition.getCol());
-                            }
-                        }
+                if (isAdjacentToHerbivore(newCoordinates, target) && checkingTheCorrectnessOfCoordinates(newCoordinates) && !isVisited.containsKey(newCoordinates)) {
+                    return newCoordinates;
+                }
+                if (checkingTheCorrectnessOfCoordinates(newCoordinates) && !isVisited.containsKey(newCoordinates)) {
+                    isVisited.put(newCoordinates, true);
+                    queue.add(newCoordinates);
+
+                    double distance = calculateDistance(newCoordinates, target);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        nearestPosition = newCoordinates;
                     }
                 }
             }
+
 
             strideLength--;
         }
@@ -66,7 +63,7 @@ public class MoveAction {
         return nearestPosition;
     }
 
-    private boolean checkingTheCorrectnessOfCoordinates(Coordinates coordinates){
+    private boolean checkingTheCorrectnessOfCoordinates(Coordinates coordinates) {
         return coordinates.getCol() > 0 && coordinates.getCol() <= width &&
                 coordinates.getRow() > 0 && coordinates.getRow() <= hight &&
                 !map.containsCoordinates(coordinates);
@@ -82,6 +79,21 @@ public class MoveAction {
         int dx = a.getRow() - b.getRow();
         int dy = a.getCol() - b.getCol();
         return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    public <T extends Entity> Entity getTheNearestTarget(Coordinates currentCoordinates, T entity) {
+        double minDistance = Double.MAX_VALUE;
+        Entity result = null;
+        for (Entity target : map.getSpecifiedObjects(entity)) {
+
+
+            double distance = calculateDistance(target.getPosition(), currentCoordinates);
+            if (distance < minDistance) {
+                minDistance = distance;
+                result = target;
+            }
+        }
+        return result;
     }
 
 }

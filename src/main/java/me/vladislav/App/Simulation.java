@@ -20,6 +20,7 @@ public class Simulation {
 
     public void nextTurn(){
         System.out.println("Turn: "+ numberOfTurns);
+        simulationAction.turn();
         renderer.mapRendering(map);
         numberOfTurns++;
     }
@@ -33,7 +34,7 @@ public class Simulation {
                     // сделать nextTurn(); и проверить работу
                     nextTurn();
                     try {
-                        Thread.sleep(5000);
+                        Thread.sleep(3000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }

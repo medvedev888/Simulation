@@ -56,6 +56,5 @@ public abstract class Creature extends Entity {
         this.healthPoints = healthPoints;
     }
 
-    public abstract void makeMove();
-
+    public abstract void makeMove(Creature creature, Map map, int strideLength);
 }

@@ -1,5 +1,6 @@
 package me.vladislav.App;
 
+import me.vladislav.Entities.Creature;
 import me.vladislav.Entities.Entity;
 import me.vladislav.Entities.Herbivore;
 
@@ -27,7 +28,7 @@ public class Map {
         return map.get(coordinates);
     }
 
-    public <T extends Entity> List<Coordinates> getSpecifiedObjects(T entity){
+    public <T extends Entity> List<Coordinates> getCoordinatesSpecifiedObjects(T entity){
         List <Coordinates> listOfHerbivores = new ArrayList<>();
         for(Entity currentEntity : map.values()){
             if(currentEntity.getClass().equals(entity.getClass())){
@@ -35,6 +36,16 @@ public class Map {
             }
         }
         return listOfHerbivores;
+    }
+
+    public <U extends Entity> List<Entity> getSpecifiedObjects(U creature){
+        List <Entity> listOfCreatures = new ArrayList<>();
+        for(Entity currentEntity : map.values()){
+            if(currentEntity.getClass().equals(creature.getClass())){
+                listOfCreatures.add(currentEntity);
+            }
+        }
+        return listOfCreatures;
     }
 
     public void removeEntity(Coordinates coordinates){
