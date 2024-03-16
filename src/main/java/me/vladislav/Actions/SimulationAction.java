@@ -34,8 +34,11 @@ public class SimulationAction extends Action{
         }
 
         // сделать функционал поедания
-        // сделать движение Herbivore
-
+        List<Entity> listOfHerbivore;
+        listOfHerbivore = getMap().getSpecifiedObjects(new Herbivore());
+        for(Entity herbivore : listOfHerbivore){
+            ((Creature) herbivore).makeMove((Creature) herbivore, getMap(), ((Creature) herbivore).getStrideLength());
+        }
 
     }
 }

@@ -26,9 +26,9 @@ public class Herbivore extends Creature {
     @Override
     public void makeMove(Creature creature, Map map, int strideLength){
         MoveAction moveAction = new MoveAction(getMap(), getMap().getWidth(), getMap().getHeight());
-        moveAction.makeAMove(creature, map, strideLength);
+        moveAction.makeAMove(creature, strideLength);
         getMap().removeEntity(creature.getPosition());
-        Coordinates newCoordinates = moveAction.makeAMove(creature, map, strideLength);
+        Coordinates newCoordinates = moveAction.makeAMove(creature, strideLength);
         creature.setPosition(newCoordinates);
         getMap().addEntity(newCoordinates, creature);
     }

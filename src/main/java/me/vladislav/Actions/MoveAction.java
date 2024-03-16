@@ -18,7 +18,7 @@ public class MoveAction {
     }
 
     // returns the creature with a new coordinate after moving to the target (BFS)
-    public <T extends Creature> Coordinates makeAMove(T creature, Map map, int strideLength) {
+    public <T extends Creature> Coordinates makeAMove(T creature, int strideLength) {
         Queue<Coordinates> queue = new LinkedList<>();
         java.util.Map<Coordinates, Boolean> isVisited = new HashMap<>();
         int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
@@ -33,7 +33,11 @@ public class MoveAction {
         while (!queue.isEmpty() && strideLength > 0) {
 
             Coordinates currentElement = queue.poll();
-            target = getTheNearestTarget(currentElement, new Herbivore()).getPosition();
+            if(creature.getClass().equals(Predator.class)){
+                target = getTheNearestTarget(currentElement, new Herbivore()).getPosition();
+            } else {
+                target = getTheNearestTarget(currentElement, new Grass()).getPosition();
+            }
 
             for (int[] dir : directions) {
                 int newRow = currentElement.getRow() + dir[0];
