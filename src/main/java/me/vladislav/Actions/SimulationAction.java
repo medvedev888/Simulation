@@ -1,11 +1,8 @@
 package me.vladislav.Actions;
 
-import me.vladislav.App.Coordinates;
 import me.vladislav.App.Map;
-import me.vladislav.App.Renderer;
 import me.vladislav.Entities.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SimulationAction extends Action{
@@ -26,12 +23,15 @@ public class SimulationAction extends Action{
         }
     }
 
-    public void turn(){
+    public boolean turn(){
         List<Entity> listOfPredator;
         listOfPredator = getMap().getSpecifiedObjects(new Predator());
         for(Entity predator : listOfPredator){
             if(!(((Predator) predator).attack(predator.getPosition(), getMap()))){
-                ((Creature) predator).makeMove((Creature) predator, getMap(), ((Creature) predator).getStrideLength());
+                boolean res = ((Creature) predator).makeMove((Creature) predator, getMap(), ((Creature) predator).getStrideLength());
+                if(!res){
+                    return false;
+                }
             }
         }
 
@@ -39,8 +39,12 @@ public class SimulationAction extends Action{
         listOfHerbivore = getMap().getSpecifiedObjects(new Herbivore());
         for(Entity herbivore : listOfHerbivore){
             if(!(((Herbivore) herbivore).eat(herbivore.getPosition(), getMap()))){
-                ((Creature) herbivore).makeMove((Creature) herbivore, getMap(), ((Creature) herbivore).getStrideLength());
+                boolean res = ((Creature) herbivore).makeMove((Creature) herbivore, getMap(), ((Creature) herbivore).getStrideLength());
+                if(!res){
+                    return false;
+                }
             }
         }
+        return true;
     }
 }

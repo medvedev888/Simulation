@@ -20,7 +20,10 @@ public class Simulation {
 
     public void nextTurn(){
         System.out.println("Turn: "+ numberOfTurns);
-        simulationAction.turn();
+        if(!simulationAction.turn()){
+            endTheSimulation();
+            return;
+        }
         renderer.mapRendering(map);
         numberOfTurns++;
     }
@@ -31,7 +34,6 @@ public class Simulation {
             @Override
             public void run() {
                 while (isWork) {
-                    // сделать nextTurn(); и проверить работу
                     nextTurn();
                     try {
                         Thread.sleep(3000);
@@ -48,14 +50,14 @@ public class Simulation {
         while (isWork) {
             input = scanner.nextLine();
             if(Objects.equals(input, "Stop")){
-                pauseSimulation();
-                break;
+                endTheSimulation();
             }
         }
         scanner.close();
     }
 
-    public void pauseSimulation(){
+    public void endTheSimulation(){
+        System.out.println("Game is end");
         isWork = false;
     }
 

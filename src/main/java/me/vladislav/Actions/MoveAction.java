@@ -33,14 +33,17 @@ public class MoveAction {
         while (!queue.isEmpty() && strideLength > 0) {
 
             Coordinates currentElement = queue.poll();
+
             if(creature.getClass().equals(Predator.class)){
+                if(getTheNearestTarget(currentElement, new Herbivore()) == null){
+                    return null;
+                }
                 target = getTheNearestTarget(currentElement, new Herbivore()).getPosition();
             } else {
+                if(getTheNearestTarget(currentElement, new Grass()) == null){
+                    return null;
+                }
                 target = getTheNearestTarget(currentElement, new Grass()).getPosition();
-            }
-
-            if(target == null){
-                return null;
             }
 
             for (int[] dir : directions) {
