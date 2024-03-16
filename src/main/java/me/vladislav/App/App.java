@@ -1,8 +1,6 @@
 package me.vladislav.App;
 
-
 import me.vladislav.Actions.SimulationAction;
-
 
 public class App {
     public static void main(String[] args) {
@@ -11,11 +9,9 @@ public class App {
         Renderer renderer = new Renderer(map);
         Simulation simulation = new Simulation(map, renderer, simulationAction);
 
-        simulationAction.init(2, 2, 2, 5, 3);
+        simulationAction.init(5, 2, 2, 5, 5);
         renderer.mapRendering(map);
         simulation.startSimulation();
-
-
 
     }
 }

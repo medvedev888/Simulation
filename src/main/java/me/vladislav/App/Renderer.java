@@ -28,13 +28,13 @@ public class Renderer {
                         System.out.printf("%s ", "\uD83C\uDF34");
                     }
                     else if(map.getEntity(currentCoordinates) instanceof Herbivore){
-                        System.out.printf("%s ", "\uD83D\uDC0F");
+                        System.out.printf("%s ", "\uD83D\uDC16");
                     }
                     else if(map.getEntity(currentCoordinates) instanceof Predator){
                         System.out.printf("%s ", "\uD83D\uDC06");
                     }
                 } else {
-                    System.out.print("⬜ ");
+                    System.out.print("⬛ ");
                 }
             }
             System.out.println();
