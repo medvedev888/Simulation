@@ -22,6 +22,7 @@ public class Simulation {
         System.out.println("Turn: "+ numberOfTurns);
         if(!simulationAction.turn()){
             endTheSimulation();
+            renderer.mapRendering(map);
             return;
         }
         renderer.mapRendering(map);

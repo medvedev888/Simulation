@@ -40,11 +40,17 @@ public class Herbivore extends Creature {
     public boolean eat(Coordinates herbivorePosition, Map map){
         Coordinates positionOfTarget = checkTheNearestCoordinates(herbivorePosition, map);
         if(positionOfTarget != null){
+            System.out.println("Herbivore on " + herbivorePosition.toString() + " ate grass on " + positionOfTarget.toString());
+            this.setHungerLevel(0);
+            this.setHealthPoints(this.getHealthPoints() + 3);
+            System.out.println("Herbivore on " + herbivorePosition.toString() + " restores 3 health points");
             getMap().removeEntity(positionOfTarget);
             return true;
         } else {
             return false;
         }
     }
+
+
 
 }

@@ -42,7 +42,15 @@ public class Predator extends Creature {
     public boolean attack(Coordinates predatorPosition, Map map){
         Coordinates positionOfTarget = checkTheNearestCoordinates(predatorPosition, map);
         if(positionOfTarget != null){
-            getMap().removeEntity(positionOfTarget);
+            System.out.println("Predator on " + predatorPosition.toString() + " attacked the herbivore on " + positionOfTarget.toString());
+            ((Creature) getMap().getEntity(positionOfTarget)).setHealthPoints(((Creature) getMap().getEntity(positionOfTarget)).getHealthPoints() - this.attackPower);
+            System.out.println("Herbivore on " + positionOfTarget.toString() + " loses " + this.attackPower + " health points");
+            setHealthPoints(getHealthPoints() + 3);
+            System.out.println("Predator on " + predatorPosition.toString() + " restores 3 health points");
+            if(((Creature) getMap().getEntity(positionOfTarget)).getHealthPoints() <= 0){
+                System.out.println("Herbivore on " + positionOfTarget.toString() + " is died(");
+                getMap().removeEntity(positionOfTarget);
+            }
             return true;
         } else {
             return false;
