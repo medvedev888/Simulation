@@ -30,15 +30,17 @@ public class SimulationAction extends Action{
         List<Entity> listOfPredator;
         listOfPredator = getMap().getSpecifiedObjects(new Predator());
         for(Entity predator : listOfPredator){
-            ((Creature) predator).makeMove((Creature) predator, getMap(), ((Creature) predator).getStrideLength());
+            if(!(((Predator) predator).attack(predator.getPosition(), getMap()))){
+                ((Creature) predator).makeMove((Creature) predator, getMap(), ((Creature) predator).getStrideLength());
+            }
         }
 
-        // сделать функционал поедания
         List<Entity> listOfHerbivore;
         listOfHerbivore = getMap().getSpecifiedObjects(new Herbivore());
         for(Entity herbivore : listOfHerbivore){
-            ((Creature) herbivore).makeMove((Creature) herbivore, getMap(), ((Creature) herbivore).getStrideLength());
+            if(!(((Herbivore) herbivore).eat(herbivore.getPosition(), getMap()))){
+                ((Creature) herbivore).makeMove((Creature) herbivore, getMap(), ((Creature) herbivore).getStrideLength());
+            }
         }
-
     }
 }

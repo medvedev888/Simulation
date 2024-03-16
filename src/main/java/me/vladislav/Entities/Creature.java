@@ -16,7 +16,7 @@ public abstract class Creature extends Entity {
         this.healthPoints = healthPoints;
     }
 
-    public Creature(Map map, int hungerLevel, int strideLength, int healthPoints){
+    public Creature(Map map, int hungerLevel, int strideLength, int healthPoints) {
         super(map);
         this.hungerLevel = hungerLevel;
         this.strideLength = strideLength;
@@ -56,5 +56,28 @@ public abstract class Creature extends Entity {
         this.healthPoints = healthPoints;
     }
 
-    public abstract void makeMove(Creature creature, Map map, int strideLength);
+    public abstract boolean makeMove(Creature creature, Map map, int strideLength);
+
+    public Coordinates checkTheNearestCoordinates(Coordinates creaturePosition, Map map) {
+        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        for (int[] dir : directions) {
+            int newRow = creaturePosition.getRow() + dir[0];
+            int newCol = creaturePosition.getCol() + dir[1];
+
+            if (map.getEntity(creaturePosition).getClass().equals(Predator.class)) {
+                Entity entity = map.getEntity(new Coordinates(newRow, newCol));
+                if (entity != null && entity.getClass().equals(Herbivore.class)) {
+                    return new Coordinates(newRow, newCol);
+                }
+            } else {
+                Entity entity = map.getEntity(new Coordinates(newRow, newCol));
+                if (entity != null && entity.getClass().equals(Grass.class)) {
+                    return new Coordinates(newRow, newCol);
+                }
+            }
+        }
+        return null;
+    }
+
 }

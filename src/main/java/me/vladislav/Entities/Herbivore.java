@@ -24,17 +24,27 @@ public class Herbivore extends Creature {
     }
 
     @Override
-    public void makeMove(Creature creature, Map map, int strideLength){
+    public boolean makeMove(Creature creature, Map map, int strideLength){
         MoveAction moveAction = new MoveAction(getMap(), getMap().getWidth(), getMap().getHeight());
         moveAction.makeAMove(creature, strideLength);
+//        if(moveAction.makeAMove(creature, strideLength) == null){
+//            return false;
+//        }
         getMap().removeEntity(creature.getPosition());
         Coordinates newCoordinates = moveAction.makeAMove(creature, strideLength);
         creature.setPosition(newCoordinates);
         getMap().addEntity(newCoordinates, creature);
+        return true;
     }
 
-    public void eat(Grass grass){
-
+    public boolean eat(Coordinates herbivorePosition, Map map){
+        Coordinates positionOfTarget = checkTheNearestCoordinates(herbivorePosition, map);
+        if(positionOfTarget != null){
+            getMap().removeEntity(positionOfTarget);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

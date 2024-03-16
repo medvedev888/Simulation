@@ -39,6 +39,10 @@ public class MoveAction {
                 target = getTheNearestTarget(currentElement, new Grass()).getPosition();
             }
 
+            if(target == null){
+                return null;
+            }
+
             for (int[] dir : directions) {
                 int newRow = currentElement.getRow() + dir[0];
                 int newCol = currentElement.getCol() + dir[1];
