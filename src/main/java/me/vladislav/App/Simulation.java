@@ -58,7 +58,7 @@ public class Simulation {
     }
 
     public void endTheSimulation(){
-        System.out.println("Game is end");
+        System.out.println("Simulation is end");
         isWork = false;
     }
 
